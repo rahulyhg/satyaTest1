@@ -1,4 +1,5 @@
 <?php
+
 namespace User;
 
 use Zend\Router\Http\Literal;
@@ -8,57 +9,131 @@ use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 return [
     'router' => [
         'routes' => [
-            'user-login' => [
+            'login' => [
                 'type' => Literal::class,
                 'options' => [
-                    'route'    => '/user/login',
+                    'route' => '/login',
                     'defaults' => [
                         'controller' => Controller\AuthController::class,
-                        'action'     => 'userLogin',
+                        'action' => 'login',
                     ],
                 ],
             ],
-            'user-logout' => [
+ 
+            'lowyer' => array(
+                'child_routes' => array(
+                    'login' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/login',
+                            'defaults' => array(
+                                'controller' => Controller\AuthController::class,
+                                'action' => 'login',
+                            ),
+                        ),
+
+                    ),
+//                     'registration' => array(
+//                        'type' => 'Literal',
+//                        'options' => array(
+//                            'route' => '/registration',
+//                            'defaults' => array(
+//                                'controller' => Controller\AuthController::class,
+//                                'action' => 'registration',
+//                            ),
+//                        ),
+//
+//                    ),
+                ),
+            ),
+            
+            'zfcadmin' => array(
+                'child_routes' => array(
+                    'login' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/login',
+                            'defaults' => array(
+                                'controller' => Controller\AuthController::class,
+                                'action' => 'login',
+                            ),
+                        ),
+//                    'child_routes' =>array(
+//                        'mychildroute' => array(
+//                            'type' => 'literal',
+//                            'options' => array(
+//                                'route' => '/',
+//                                'defaults' => array(
+//                                    'controller' => 'mycontroller',
+//                                    'action'     => 'myaction',
+//                                ),
+//                            ),
+//                        ),
+//                    ),
+                    ),
+                ),
+            ),
+//            'zfsadmin' => [
+//                'type' => Literal::class,
+//                'options' => [
+//                    'route'    => '/admin',
+//                    'defaults' => [
+//                        'controller' => Controller\AuthController::class,
+//                        'action'     => 'login',
+//                    ],
+//                ],
+//            ],
+//            'admin-login' => [
+//                'type' => Literal::class,
+//                'options' => [
+//                    'route'    => '/admin/login',
+//                    'defaults' => [
+//                        'controller' => Controller\AuthController::class,
+//                        'action'     => 'login',
+//                    ],
+//                ],
+//            ],
+            'logout' => [
                 'type' => Literal::class,
                 'options' => [
-                    'route'    => '/user/logout',
+                    'route' => '/logout',
                     'defaults' => [
                         'controller' => Controller\AuthController::class,
-                        'action'     => 'userLogout',
+                        'action' => 'logout',
                     ],
                 ],
             ],
-            'user-reset-password' => [
+            'reset-password' => [
                 'type' => Literal::class,
                 'options' => [
-                    'route'    => '/user-reset-password',
+                    'route' => '/reset-password',
                     'defaults' => [
                         'controller' => Controller\UserController::class,
-                        'action'     => 'UserResetPassword',
+                        'action' => 'resetPassword',
                     ],
                 ],
             ],
-            'user-set-password' => [
+            'set-password' => [
                 'type' => Literal::class,
                 'options' => [
-                    'route'    => '/user-set-password',
+                    'route' => '/set-password',
                     'defaults' => [
                         'controller' => Controller\UserController::class,
-                        'action'     => 'userSetPassword',
+                        'action' => 'setPassword',
                     ],
                 ],
             ],
             'users' => [
-                'type'    => Segment::class,
+                'type' => Segment::class,
                 'options' => [
-                    'route'    => '/users[/:action[/:id]]',
+                    'route' => '/users[/:action[/:id]]',
                     'constraints' => [
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id' => '[a-zA-Z0-9_-]*',
                     ],
                     'defaults' => [
-                        'controller'    => Controller\UserController::class,
-                        'action'        => 'index',
+                        'controller' => Controller\UserController::class,
+                        'action' => 'index',
                     ],
                 ],
             ],
@@ -67,7 +142,7 @@ return [
     'controllers' => [
         'factories' => [
             Controller\AuthController::class => Controller\Factory\AuthControllerFactory::class,
-            Controller\UserController::class => Controller\Factory\UserControllerFactory::class,            
+            Controller\UserController::class => Controller\Factory\UserControllerFactory::class,
         ],
     ],
     // The 'access_filter' key is used by the User module to restrict or permit
@@ -77,7 +152,7 @@ return [
             Controller\UserController::class => [
                 // Give access to "resetPassword", "message" and "setPassword" actions
                 // to anyone.
-                ['actions' => ['resetPassword', 'message', 'setPassword'], 'allow' => '*'],
+                ['actions' => ['resetPassword', 'message', 'setPassword', 'registration'], 'allow' => '*'],
                 // Give access to "index", "add", "edit", "view", "changePassword" actions to authorized users only.
                 ['actions' => ['index', 'add', 'edit', 'view', 'changePassword'], 'allow' => '@']
             ],

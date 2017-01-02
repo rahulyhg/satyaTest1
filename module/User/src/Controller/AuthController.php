@@ -52,7 +52,7 @@ class AuthController extends AbstractActionController
     /**
      * Authenticates user given email address and password credentials.     
      */
-    public function userLoginAction()
+    public function loginAction()
     {
         // Retrieve the redirect URL (if passed). We will redirect the user to this
         // URL after successfull login.
@@ -129,7 +129,7 @@ class AuthController extends AbstractActionController
     /**
      * The "logout" action performs logout operation.
      */
-    public function userLogoutAction() 
+    public function logoutAction() 
     {        
         $this->authManager->logout();
         

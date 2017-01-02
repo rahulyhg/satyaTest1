@@ -32,5 +32,8 @@ return [
     //'Zend\Permissions\Acl',
     'Application',
     'User',
-    'UsersACL',
+    //'UsersACL',
+    //'Admin',
+    'ZfcAdmin',
+    'Lowyer'
 ];

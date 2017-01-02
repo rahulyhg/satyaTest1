@@ -54,7 +54,7 @@ class NavManager
             $items[] = [
                 'id' => 'login',
                 'label' => 'Sign in',
-                'link'  => $url('user-login'),
+                'link'  => $url('login'),
                 'float' => 'right'
             ];
         } else {
@@ -84,7 +84,7 @@ class NavManager
                     [
                         'id' => 'logout',
                         'label' => 'Sign out',
-                        'link' => $url('user-logout')
+                        'link' => $url('logout')
                     ],
                 ]
             ];

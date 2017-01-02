@@ -85,6 +85,41 @@ class UserController extends AbstractActionController
             ]);
     }
     
+    public function registrationAction(){
+        // Create user form
+        $form = new UserForm('create', $this->entityManager);
+        
+        // Check if user has submitted the form
+        if ($this->getRequest()->isPost()) {
+            
+            // Fill in the form with POST data
+            $data = $this->params()->fromPost();            
+            
+            $form->setData($data);
+            
+            // Validate form
+            if($form->isValid()) {
+                
+                // Get filtered and validated data
+                $data = $form->getData();
+                
+                // Add user.
+                $user = $this->userManager->addUser($data);
+                
+                // Redirect to "view" page
+                return $this->redirect()->toRoute('users', 
+                        ['action'=>'view', 'id'=>$user->getId()]);                
+            }               
+        } 
+        
+        return new ViewModel([
+                'form' => $form
+            ]);
+        
+        
+    }
+
+
     /**
      * The "view" action displays a page allowing to view user's details.
      */

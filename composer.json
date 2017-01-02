@@ -34,7 +34,10 @@
     "autoload": {
         "psr-4": {
             "Application\\": "module/Application/src/",
-            "User\\": "module/User/src/"
+            "User\\": "module/User/src/",
+            "Lowyer\\": "module/Lowyer/src/"
+            
+           
         }
     },
     "autoload-dev": {
